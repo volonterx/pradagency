@@ -1,0 +1,15 @@
+<h1>Проекты</h1>
+<%= notice %><br><br>
+<%= link_to "Создать новый проект", new_admin_project_path %>
+<% @projects.each do |project| %>
+<table border="0" cellspacing="2" cellpadding="2">
+	<tr>
+		<td>Project&nbsp;&nbsp;<%= link_to project.task, project_path(project) %></td>
+		<td>|&nbsp;<%= link_to "edit", edit_admin_project_path(project)%></td>
+		<td>|&nbsp;<%= link_to "delete", admin_project_path(project), :confirm => 'Вы действительно хотите удалить проект?', :method => :delete %></td>
+	</tr>
+	<tr>
+		<td>for&nbsp;<i><%= project.client %></i></td>
+	<tr>
+</table>
+<% end %>

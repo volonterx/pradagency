@@ -1,0 +1,1 @@
+page.replace_html "reorder-status", :text => "Порядок успешно обновлен.<script>Effect.Pulsate('reorder-status')</script>"

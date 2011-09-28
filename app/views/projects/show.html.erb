@@ -1,0 +1,16 @@
+<table border="0" cellspacing="2" cellpadding="2">
+	<tr>
+		<td>Клиент:&nbsp;<%= @project.client %></td>
+	<tr>
+	<tr>
+		<td>Проект:&nbsp;&nbsp;<%= @project.task %></td>
+	</tr>
+	<tr>
+		<td>Задача:&nbsp;&nbsp;<%= @project.objective %></td>
+	</tr>
+	<tr>
+		<td><%= link_to @project.link, @project.link %></td>
+	</tr>
+	
+</table>
+<%= image_tag @project.preview.url %>

@@ -1,0 +1,5 @@
+<h1>Новый проект</h1>
+
+<%= form_for(@project, :url => admin_projects_path) do |f| %>
+ <%= render :partial => "form", :locals => {:f => f} %>
+<% end %>

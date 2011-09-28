@@ -1,0 +1,27 @@
+
+development:
+  adapter: 
+  database: pradagency_dev
+  username: 
+  password: 111111
+
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: 
+  database: pradagency_test
+  username: 
+    password: 111111
+
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: 
+  database: pradagency_prod
+  username: 
+    password: 111111
+
+  pool: 5
+  timeout: 5000
