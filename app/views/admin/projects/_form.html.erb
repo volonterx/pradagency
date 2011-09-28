@@ -27,15 +27,17 @@
 	<%= f.label :preview %>
 	<%= f.file_field :preview %>
 </p>
+
 <p>png/jpg/gif не более 4 Мб:<br>
 Можно выбрать несколько сразу</p>
 Images&nbsp;
-<%= file_field_tag 'project[images_attributes][][image]', :multiple => true %><br>
+<%= file_field_tag 'project[images_attributes][][image]', :multiple => true %>
 <% if controller.action_name =~ /update|edit/ %>
-<ul>
+
+<ul id="images">
 		<% @project.images.each do |image_delete| %>
 		 	<% if image_delete.id != nil %>
-				<br><li id="image_<%= image_delete.id %>">
+				<br><li id="image_<%= image_delete.id %>"><span class="handle">[drag]</span>
 				<%= image_tag image_delete.image.url(:small, false) %>
 		        <br>Удалить изображение <input name="delete_ids[]" type="checkbox" value="<%= image_delete.id %>" /><br><br>
 		 <% end %>

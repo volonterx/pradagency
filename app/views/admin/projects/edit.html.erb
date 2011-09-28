@@ -1,5 +1,31 @@
 <h1>Редактирование проекта</h1>
+<% content_for :javascript do %>
+	<%= javascript_tag do %>
+	// Sorting the list
 
+	$(document).ready(function(){
+		$('#images').sortable({
+			axis: 'y',
+			dropOnEmpty: false,
+			handle: '.handle',
+			cursor: 'crosshair',
+			items: 'li',
+			opacity: 0.4,
+			scroll: true,
+			update: function(){
+				$.ajax({
+					type: 'post',
+					data: $('#images').sortable('serialize'),
+					dataType: 'script',
+					complete: function(request){
+						$('#images').effect('highlight');
+					},
+					url: 'sort'})
+				}
+			});
+		});
+		<% end %>
+<% end %>
 
 <%= form_for(@project, :url => admin_project_path(@project)) do |f| %>
  <%= render :partial => "form", :locals => {:f => f} %>

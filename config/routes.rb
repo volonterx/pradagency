@@ -2,13 +2,14 @@ Pradagency::Application.routes.draw do
 
   namespace :admin do
     resources :projects do
-       collection do 
-         post :reorder
-       end
+      member do 
+        post "sort"
+      end
     end
   end
 
 resources :projects
+resources :admin
 
   root :to => 'admin/projects#index'
 

@@ -1,5 +1,5 @@
 class Admin::ProjectsController < ApplicationController
-  before_filter :find_project, :only => [:edit, :update, :destroy]
+  before_filter :find_project, :only => [:edit, :update, :destroy, :sort]
   
   def index
     @projects = Project.all(:order => "created_at ASC")
@@ -14,8 +14,7 @@ class Admin::ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     if @project.save 
-      redirect_to admin_projects_path
-      notice = "Проект успешно добавлен" 
+      redirect_to admin_projects_path, :notice => "Проект успешно добавлен" 
     else 
       render :action => "new"
     end
@@ -23,6 +22,7 @@ class Admin::ProjectsController < ApplicationController
 
   def edit
     @image_counter = @project.images.size
+    @images = @project.images.order('images.position ASC')
   end
 
   def update
@@ -34,8 +34,7 @@ class Admin::ProjectsController < ApplicationController
           image.destroy
         end
       end
-     redirect_to admin_projects_path
-     notice = "Проект успешно отредактирован"
+     redirect_to admin_projects_path, :notice => "Проект успешно отредактирован"
     else
      render :action => "edit"
     end
@@ -47,27 +46,22 @@ class Admin::ProjectsController < ApplicationController
     else
       notice = "С удалением что-то не так"
     end
-    redirect_to admin_projects_path
+    redirect_to admin_projects_path, :notice => notice
   end
 
-  def reorder
-      if request.xhr?
-        new_order = params[:order].split("&").map{|t| t.split("=").last}
-        Image.find_all_by_post_id(params[:project_id], :order => "position ASC").each do |p|
-          p.update_attribute(:position, new_order.index(p.id.to_s))
-        end
-        respond_to do |wants|
-          wants.js
-        end
-      else
-        render :text => "<h1>Who are you, Mr.?</h1>"
-      end
+  def sort
+    @images = @project.images.all
+    @images.each do |image|
+
+      image.update_attribute(:position, params['image'].index(image.id.to_s) + 1)
   end
 
+  render :nothing => true
+  end
+  
   private
   
   def find_project
     @project = Project.find(params[:id])
-    
   end
 end
